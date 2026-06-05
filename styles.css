@@ -29,7 +29,8 @@
 html {
     scroll-behavior: smooth;
     min-height: 100%;
-    background: var(--bg-bottom);
+    background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 46%, var(--bg-bottom) 100%);
+    background-color: var(--bg-bottom);
 }
 
 body {
@@ -38,10 +39,7 @@ body {
     min-height: 100svh;
     color: var(--text-primary);
     font-family: var(--font-body);
-    background:
-        radial-gradient(circle at 20% 15%, rgba(197, 246, 255, 0.24), transparent 18%),
-        radial-gradient(circle at 78% 24%, rgba(183, 239, 255, 0.16), transparent 16%),
-        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 46%, var(--bg-bottom) 100%);
+    background: transparent;
     overflow-x: hidden;
 }
 
@@ -54,11 +52,15 @@ body {
 body::before {
     content: "";
     position: fixed;
-    inset: 0;
+    inset: -80px 0;
     background:
+        radial-gradient(circle at 20% 15%, rgba(197, 246, 255, 0.24), transparent 18%),
+        radial-gradient(circle at 78% 24%, rgba(183, 239, 255, 0.16), transparent 16%),
         radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.13), transparent 22%),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.04), transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 72%);
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04), transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 72%),
+        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 46%, var(--bg-bottom) 100%);
     pointer-events: none;
+    transform: translateZ(0);
 }
 
 .page-shell {
