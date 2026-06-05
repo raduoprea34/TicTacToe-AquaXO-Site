@@ -448,7 +448,7 @@ body:not([data-page="home"]) main {
     .page-shell {
         width: min(100% - 20px, 1180px);
         padding-top: 42px;
-        padding-bottom: 58px;
+        padding-bottom: 46px;
     }
 
     .site-header,
