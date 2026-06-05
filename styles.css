@@ -14,6 +14,12 @@
     --button-fill-soft: linear-gradient(180deg, rgba(165, 235, 255, 0.22), rgba(109, 197, 245, 0.28));
     --font-title: "Avenir Next", Avenir, "Segoe UI", sans-serif;
     --font-body: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --page-gutter: 16px;
+    --page-gutter-mobile: 10px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
 }
 
 * {
@@ -22,11 +28,14 @@
 
 html {
     scroll-behavior: smooth;
+    min-height: 100%;
+    background: var(--bg-bottom);
 }
 
 body {
     margin: 0;
     min-height: 100vh;
+    min-height: 100svh;
     color: var(--text-primary);
     font-family: var(--font-body);
     background:
@@ -34,6 +43,12 @@ body {
         radial-gradient(circle at 78% 24%, rgba(183, 239, 255, 0.16), transparent 16%),
         linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 46%, var(--bg-bottom) 100%);
     overflow-x: hidden;
+}
+
+@supports (min-height: 100dvh) {
+    body {
+        min-height: 100dvh;
+    }
 }
 
 body::before {
@@ -49,12 +64,23 @@ body::before {
 .page-shell {
     position: relative;
     z-index: 1;
-    width: min(1180px, calc(100% - 32px));
+    width: min(1180px, 100%);
     min-height: 100vh;
+    min-height: 100svh;
     margin: 0 auto;
-    padding: 54px 0 40px;
+    padding:
+        calc(54px + var(--safe-top))
+        max(var(--page-gutter), var(--safe-right))
+        calc(40px + var(--safe-bottom))
+        max(var(--page-gutter), var(--safe-left));
     display: flex;
     flex-direction: column;
+}
+
+@supports (min-height: 100dvh) {
+    .page-shell {
+        min-height: 100dvh;
+    }
 }
 
 .site-header,
@@ -104,6 +130,10 @@ body::before {
     color: var(--text-secondary);
     text-decoration: none;
     transition: color 160ms ease;
+}
+
+.inline-link {
+    overflow-wrap: anywhere;
 }
 
 .site-nav a:hover,
@@ -442,8 +472,11 @@ body:not([data-page="home"]) main {
 
 @media (max-width: 720px) {
     .page-shell {
-        width: min(100% - 20px, 1180px);
-        padding-top: 42px;
+        padding:
+            calc(42px + var(--safe-top))
+            max(var(--page-gutter-mobile), var(--safe-right))
+            calc(34px + var(--safe-bottom))
+            max(var(--page-gutter-mobile), var(--safe-left));
     }
 
     .site-header,
@@ -456,6 +489,13 @@ body:not([data-page="home"]) main {
     .site-nav,
     .footer-right {
         gap: 14px;
+    }
+
+    .site-nav a,
+    .footer-right a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
     }
 
     .brand-lockup,
@@ -476,5 +516,34 @@ body:not([data-page="home"]) main {
     .feature-chip {
         min-width: 100%;
         justify-content: flex-start;
+    }
+}
+
+@media (max-width: 430px) {
+    .brand-lockup--hero {
+        margin-top: 26px;
+    }
+
+    .hero-text,
+    .document-hero .hero-text {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .document-hero {
+        padding-bottom: 24px;
+    }
+
+    .document-hero h1 {
+        font-size: 2.35rem;
+    }
+
+    .document-section {
+        padding-bottom: 26px;
+    }
+
+    .document-section h2 {
+        font-size: 1.22rem;
+        line-height: 1.25;
     }
 }
