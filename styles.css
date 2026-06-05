@@ -1,5 +1,4 @@
 :root {
-    color-scheme: light;
     --bg-top: #4cb8e0;
     --bg-mid: #1a78ad;
     --bg-bottom: #083d64;
@@ -15,12 +14,6 @@
     --button-fill-soft: linear-gradient(180deg, rgba(165, 235, 255, 0.22), rgba(109, 197, 245, 0.28));
     --font-title: "Avenir Next", Avenir, "Segoe UI", sans-serif;
     --font-body: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --page-gutter: 16px;
-    --page-gutter-mobile: 10px;
-    --safe-top: env(safe-area-inset-top, 0px);
-    --safe-right: env(safe-area-inset-right, 0px);
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
-    --safe-left: env(safe-area-inset-left, 0px);
 }
 
 * {
@@ -29,72 +22,39 @@
 
 html {
     scroll-behavior: smooth;
-    min-height: 100%;
-    min-height: -webkit-fill-available;
-    background: #000;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
-    min-height: 100svh;
-    min-height: -webkit-fill-available;
     color: var(--text-primary);
     font-family: var(--font-body);
-    background: transparent;
+    background:
+        radial-gradient(circle at 20% 15%, rgba(197, 246, 255, 0.24), transparent 18%),
+        radial-gradient(circle at 78% 24%, rgba(183, 239, 255, 0.16), transparent 16%),
+        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 46%, var(--bg-bottom) 100%);
     overflow-x: hidden;
-}
-
-@supports (min-height: 100dvh) {
-    body {
-        min-height: 100dvh;
-    }
 }
 
 body::before {
     content: "";
     position: fixed;
-    inset: -80px 0;
+    inset: 0;
     background:
-        radial-gradient(circle at 20% 15%, rgba(197, 246, 255, 0.24), transparent 18%),
-        radial-gradient(circle at 78% 24%, rgba(183, 239, 255, 0.16), transparent 16%),
         radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.13), transparent 22%),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.04), transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 72%),
-        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 46%, var(--bg-bottom) 100%);
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04), transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 72%);
     pointer-events: none;
-    transform: translateZ(0);
 }
 
 .page-shell {
     position: relative;
     z-index: 1;
-    width: min(1180px, 100%);
+    width: min(1180px, calc(100% - 32px));
     min-height: 100vh;
-    min-height: 100svh;
-    min-height: -webkit-fill-available;
     margin: 0 auto;
-    padding:
-        calc(54px + var(--safe-top))
-        max(var(--page-gutter), var(--safe-right))
-        calc(40px + var(--safe-bottom))
-        max(var(--page-gutter), var(--safe-left));
+    padding: 54px 0 40px;
     display: flex;
     flex-direction: column;
-}
-
-@supports (min-height: 100dvh) {
-    .page-shell {
-        min-height: 100dvh;
-    }
-}
-
-@media (max-width: 720px) {
-    @supports (min-height: 100lvh) {
-        body,
-        .page-shell {
-            min-height: 100lvh;
-        }
-    }
 }
 
 .site-header,
@@ -486,11 +446,9 @@ body:not([data-page="home"]) main {
 
 @media (max-width: 720px) {
     .page-shell {
-        padding:
-            calc(42px + var(--safe-top))
-            max(var(--page-gutter-mobile), var(--safe-right))
-            calc(58px + var(--safe-bottom))
-            max(var(--page-gutter-mobile), var(--safe-left));
+        width: min(100% - 20px, 1180px);
+        padding-top: 42px;
+        padding-bottom: 58px;
     }
 
     .site-header,
